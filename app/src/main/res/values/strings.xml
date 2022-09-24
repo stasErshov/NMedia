@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">firstapp</string>
+    <string name="app_name">NMedia</string>
+    <string name="NMedia">Nmedia</string>
 </resources>
