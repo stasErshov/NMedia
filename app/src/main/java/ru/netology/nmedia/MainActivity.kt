@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
             likeCount.text = post.likes.toString()
 
-            root.setOnClickListener {
+            binding.root.setOnClickListener {
                 Log.d("stuff", "stuff")
             }
 
