@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
+import ru.netology.nmedia.checkingNumberPeople
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
@@ -14,6 +15,7 @@ interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
+    fun onShare(post: Post) {}
 }
 
 class PostsAdapter(
@@ -40,10 +42,11 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
+            likeCount.text = checkingNumberPeople(post.likes)
+            shareCount.text = checkingNumberPeople(post.shareCountSum)
             like.setImageResource(
                 if (post.likedByMe) R.drawable.ic_licked_24 else R.drawable.ic_like_24
             )
-
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_menu)
@@ -66,6 +69,9 @@ class PostViewHolder(
 
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
+            }
+            share.setOnClickListener{
+                onInteractionListener.onShare(post)
             }
         }
     }
