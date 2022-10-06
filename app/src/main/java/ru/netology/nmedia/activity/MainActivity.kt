@@ -2,9 +2,11 @@ package ru.netology.nmedia.activity
 
 import PostViewModel
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 return@observe
             }
             with(binding.content) {
+                group.visibility = View.VISIBLE
                 requestFocus()
                 setText(post.content)
             }
