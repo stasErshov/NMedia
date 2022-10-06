@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.checkingNumberPeople
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.util.AndroidUtils
 
 interface OnInteractionListener {
     fun onLike(post: Post) {}
@@ -69,7 +71,6 @@ class PostViewHolder(
                     }
                 }.show()
             }
-
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }

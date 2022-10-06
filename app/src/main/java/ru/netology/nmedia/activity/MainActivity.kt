@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             }
             with(binding.content) {
                 group.visibility = View.VISIBLE
+                contentEdit.text = post.content
                 requestFocus()
                 setText(post.content)
             }
@@ -68,6 +69,30 @@ class MainActivity : AppCompatActivity() {
                 if(this.visibility == View.VISIBLE){
                     this.visibility = View.INVISIBLE
                 }
+            }
+        }
+
+        binding.deleteEdit.setOnClickListener{
+            with(binding.group){
+                if(this.visibility == View.VISIBLE){
+                    this.visibility = View.INVISIBLE
+                }
+            }
+            with(binding.content){
+                if (text.isNullOrBlank()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        context.getString(R.string.delete_content_edit),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                viewModel.changeContent(contentEdit.text.toString())
+                viewModel.save()
+
+                setText("")
+                clearFocus()
+                AndroidUtils.hideKeyboard(this)
             }
         }
     }

@@ -12,4 +12,5 @@
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Контент не может быть пустым</string>
     <string name="edit_post">Изменить Пост</string>
+    <string name="delete_content_edit">вы перестали изменять пост</string>
 </resources>
