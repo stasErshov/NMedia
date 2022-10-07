@@ -30,11 +30,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onShare(post: Post) { viewModel.shareById(post.id)}
         })
+        ///подключаем адаптер и принимаем от него изменения
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }
-
+        ///принимаем от viewModel изменение постов
         viewModel.edited.observe(this) { post ->
             if (post.id == 0L) {
                 return@observe
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 setText(post.content)
             }
         }
-
+        ///обработчик кнопки сохранения поста
         binding.save.setOnClickListener {
             with(binding.content) {
                 if (text.isNullOrBlank()) {
@@ -57,12 +58,14 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     return@setOnClickListener
                 }
-
+                ///вставляем в пост новые изменения
                 viewModel.changeContent(text.toString())
+                ///сохраняем изменения
                 viewModel.save()
 
                 setText("")
                 clearFocus()
+                ///убираем клавиатуру с экрана
                 AndroidUtils.hideKeyboard(this)
             }
             with(binding.group){
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
+        ///обработчик кнопки отменить изменение
         binding.deleteEdit.setOnClickListener{
             with(binding.group){
                 if(this.visibility == View.VISIBLE){
