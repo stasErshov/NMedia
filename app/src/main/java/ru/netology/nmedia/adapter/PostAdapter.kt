@@ -1,20 +1,14 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import ru.netology.nmedia.R
-import ru.netology.nmedia.checkingNumberPeople
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.AndroidUtils
 
 interface OnInteractionListener {
     fun onLike(post: Post) {}
@@ -47,14 +41,13 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            likeCount.text = checkingNumberPeople(post.likes)
-            shareCount.text = checkingNumberPeople(post.shareCountSum)
-            like.setImageResource(
-                if (post.likedByMe) R.drawable.ic_licked_24 else R.drawable.ic_like_24
-            )
+            // в адаптере
+            like.isChecked = post.likedByMe
+            like.text = "${post.likes}"
+
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
-                    inflate(R.menu.options_menu)
+                    inflate(R.menu.options_post)
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.remove -> {
@@ -62,7 +55,8 @@ class PostViewHolder(
                                 true
                             }
                             R.id.edit -> {
-                                onInteractionListener.onEdit(post)
+                                onInteractionListener.onEdit(post, )
+
                                 true
                             }
 
@@ -71,10 +65,12 @@ class PostViewHolder(
                     }
                 }.show()
             }
+
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
-            share.setOnClickListener{
+
+            share.setOnClickListener {
                 onInteractionListener.onShare(post)
             }
         }
