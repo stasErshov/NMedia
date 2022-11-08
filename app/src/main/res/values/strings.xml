@@ -12,4 +12,5 @@
     <string name="error_empty_content">Content can\'t be empty</string>
     <string name="edit_post">Edit Post</string>
     <string name="delete_content_edit">you stopped changing the post</string>
+    <string name="default_zero" translatable="false">0</string>
 </resources>
