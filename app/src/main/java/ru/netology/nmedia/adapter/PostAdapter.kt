@@ -41,7 +41,7 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            like.isChecked = post.likedByMe
+            like.isChecked = post.likedByMe == true
             like.text = "${post.likes}"
 
             menu.setOnClickListener {

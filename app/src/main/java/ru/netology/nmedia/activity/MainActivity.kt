@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
             result ?: return@registerForActivityResult
-
+            viewModel.edit(result)
         }
 
         val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
@@ -38,14 +38,15 @@ class MainActivity : AppCompatActivity() {
         val adapter = PostsAdapter(object : OnInteractionListener {
             override fun onEdit(post: Post) {
                 editPostLauncher.launch(post)
+                viewModel.edit(post)
             }
 
             override fun onLike(post: Post) {
-                viewModel.likeById(post.id)
+                post.id?.let { viewModel.likeById(it) }
             }
 
             override fun onRemove(post: Post) {
-                viewModel.removeById(post.id)
+                post.id?.let { viewModel.removeById(it) }
             }
 
             override fun onShare(post: Post) {
