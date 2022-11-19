@@ -15,7 +15,7 @@ import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    public lateinit var context : Context
+    lateinit var context : Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: PostViewModel by viewModels()
 
+        val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
+
+        }
+
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.changeContent(result)
+            viewModel.save()
+        }
+
         val adapter = PostsAdapter(object : OnInteractionListener {
             override fun onEdit(post: Post) {
-                ///editPostIntent()
-                ///viewModel.edit(post)
+                editPostLauncher.launch(post)
             }
 
             override fun onLike(post: Post) {
@@ -47,12 +57,6 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(posts)
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContent(result)
-            viewModel.save()
-        }
-
         binding.fab.setOnClickListener {
             newPostLauncher.launch()
         }
@@ -70,11 +74,4 @@ class MainActivity : AppCompatActivity() {
             Intent.createChooser(intent, getString(R.string.chooser_share_post))
         startActivity(shareIntent)
     }
-    ///fun editPostIntent() {
-    ///    var postTextString : String
-    ///    val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
-    ///        result ?: return@registerForActivityResult
-    ///    }
-    ///    newPostLauncher.launch()
-    ///}
 }

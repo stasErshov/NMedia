@@ -47,8 +47,6 @@ dependencies {
 
     implementation "androidx.activity:activity-ktx:1.6.0"
 
-
-
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
