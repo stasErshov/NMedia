@@ -20,16 +20,19 @@ class EditPostResultContract() : ActivityResultContract<Post, Post>(){
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Post {
-        val post = Post(
-            id = intent?.getLongExtra(Intent.EXTRA_TEXT,0),
-            author = intent?.getStringExtra(Intent.EXTRA_TEXT).toString(),
-            content = intent?.getStringExtra(Intent.EXTRA_TEXT).toString(),
-            published = intent?.getStringExtra(Intent.EXTRA_TEXT).toString(),
-            likedByMe = intent?.getBooleanExtra(Intent.EXTRA_TEXT, false),
-            likes = intent?.getIntExtra(Intent.EXTRA_TEXT, 0)
+        val result : Post = Post(
+            intent?.getLongExtra("id", 0),
+            intent?.getStringExtra("author").toString(),
+            intent?.getStringExtra("content").toString(),
+            intent?.getStringExtra("published").toString(),
+            intent?.getBooleanExtra("likedByMe", false),
+            intent?.getIntExtra("likes", 0)
         )
-        println(post)
-        return post
+        if (resultCode == Activity.RESULT_OK) {
+            return result
+        } else {
+            return result
+        }
     }
 }
 

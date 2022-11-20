@@ -29,6 +29,7 @@ class PostViewModel : ViewModel() {
 
     fun edit(post: Post) {
         edited.value = post
+        save()
     }
 
     fun changeContent(content: String) {

@@ -22,12 +22,20 @@ class EditPostActivity() : AppCompatActivity() {
         )
         binding.edit.setText(input.content)
         binding.ok.setOnClickListener {
-            intent.putExtra(Intent.EXTRA_TEXT, input.id)
-            intent.putExtra(Intent.EXTRA_TEXT, input.author)
-            intent.putExtra(Intent.EXTRA_TEXT, binding.edit.text.toString())
-            intent.putExtra(Intent.EXTRA_TEXT, input.published)
-            intent.putExtra(Intent.EXTRA_TEXT, input.likedByMe)
-            intent.putExtra(Intent.EXTRA_TEXT, input.likes)
+            if (binding.edit.text.isNullOrBlank()) {
+                setResult(Activity.RESULT_CANCELED, intent)
+            } else {
+                val content = binding.edit.text.toString()
+                /*intent.putExtra(Intent.EXTRA_TEXT, content)
+                intent.putExtra("popa", input.id)*/
+                intent.putExtra("id", input.id)
+                intent.putExtra("author", input.author)
+                intent.putExtra("content", content)
+                intent.putExtra("published", input.published)
+                intent.putExtra("likedByMe", input.likedByMe)
+                intent.putExtra("likes", input.likes)
+                setResult(Activity.RESULT_OK, intent)
+            }
             finish()
         }
     }
