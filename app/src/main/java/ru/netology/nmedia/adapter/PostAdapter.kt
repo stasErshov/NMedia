@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
-import ru.netology.nmedia.checkingNumberPeople
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
@@ -42,12 +41,9 @@ class PostViewHolder(
             author.text = post.author
             published.text = post.published
             content.text = post.content
-            like.text = checkingNumberPeople(post.likes)
-            share.text = checkingNumberPeople(post.shareCountSum)
-            like.isChecked = post.likedByMe
-            ///like.setImageResource(
-            ///    if (post.likedByMe) R.drawable.ic_licked_24 else R.drawable.ic_like_24
-            ///)
+            like.isChecked = post.likedByMe == true
+            like.text = "${post.likes}"
+
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_menu)
@@ -61,16 +57,17 @@ class PostViewHolder(
                                 onInteractionListener.onEdit(post)
                                 true
                             }
-
                             else -> false
                         }
                     }
                 }.show()
             }
+
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
-            share.setOnClickListener{
+
+            share.setOnClickListener {
                 onInteractionListener.onShare(post)
             }
         }

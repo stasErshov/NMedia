@@ -12,7 +12,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
-            likes = 1000,
             likedByMe = false
         ),
         Post(
@@ -100,26 +99,16 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun likeById(id: Long) {
         posts = posts.map {
-            if (it.id != id) it else{
-                if(it.likedByMe){
-                    it.copy(likedByMe = !it.likedByMe, likes = it.likes - 1)
-                }else{
-                    it.copy(likedByMe = !it.likedByMe, likes = it.likes + 1)
-                }
-            }
+            if (it.id != id) it else it.copy(
+                likedByMe = !it.likedByMe!!,
+                likes = if (it.likedByMe == true) it.likes?.minus(1) else it.likes?.plus(1)
+            )
         }
         data.value = posts
     }
 
     override fun removeById(id: Long) {
         posts = posts.filter { it.id != id }
-        data.value = posts
-    }
-
-    override fun shareById(id: Long) {
-        posts = posts.map {
-            if (it.id != id) it else it.copy(shareCountSum = it.shareCountSum + 1)
-        }
         data.value = posts
     }
 }
