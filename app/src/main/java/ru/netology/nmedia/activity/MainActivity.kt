@@ -42,11 +42,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLike(post: Post) {
-                post.id?.let { viewModel.likeById(it) }
+                post.id.let {
+                    if (it != null) {
+                        viewModel.likeById(it)
+                    }
+                }
             }
 
             override fun onRemove(post: Post) {
-                post.id?.let { viewModel.removeById(it) }
+                post.id.let {
+                    if(it != null){
+                        viewModel.removeById(it)
+                    }
+                }
             }
 
             override fun onShare(post: Post) {

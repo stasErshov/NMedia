@@ -26,8 +26,6 @@ class EditPostActivity() : AppCompatActivity() {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 val content = binding.edit.text.toString()
-                /*intent.putExtra(Intent.EXTRA_TEXT, content)
-                intent.putExtra("popa", input.id)*/
                 intent.putExtra("id", input.id)
                 intent.putExtra("author", input.author)
                 intent.putExtra("content", content)

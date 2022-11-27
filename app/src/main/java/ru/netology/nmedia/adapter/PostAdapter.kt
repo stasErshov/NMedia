@@ -1,6 +1,7 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -43,6 +44,9 @@ class PostViewHolder(
             content.text = post.content
             like.isChecked = post.likedByMe == true
             like.text = "${post.likes}"
+            if(post.videoUri != ""){
+                video.visibility = View.VISIBLE
+            }
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

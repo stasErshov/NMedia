@@ -11,7 +11,8 @@ private val empty = Post(
     author = "",
     likedByMe = false,
     likes = 0,
-    published = ""
+    published = "",
+    videoUri = ""
 )
 
 class PostViewModel : ViewModel() {
