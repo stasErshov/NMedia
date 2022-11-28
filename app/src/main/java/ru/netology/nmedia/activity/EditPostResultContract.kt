@@ -16,6 +16,7 @@ class EditPostResultContract() : ActivityResultContract<Post, Post>(){
         intent.putExtra("published", input.published)
         intent.putExtra("likedByMe", input.likedByMe)
         intent.putExtra("likes", input.likes)
+        intent.putExtra("video", input.videoUri)
         return intent
     }
 
@@ -26,7 +27,8 @@ class EditPostResultContract() : ActivityResultContract<Post, Post>(){
             intent?.getStringExtra("content").toString(),
             intent?.getStringExtra("published").toString(),
             intent?.getBooleanExtra("likedByMe", false),
-            intent?.getIntExtra("likes", 0)
+            intent?.getIntExtra("likes", 0),
+            intent?.getStringExtra("video").toString()
         )
         if (resultCode == Activity.RESULT_OK) {
             return result

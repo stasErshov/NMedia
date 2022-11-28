@@ -18,7 +18,8 @@ class EditPostActivity() : AppCompatActivity() {
             getIntent().getStringExtra("content").toString(),
             getIntent().getStringExtra("published").toString(),
             getIntent().getBooleanExtra("likedByMe", false),
-            getIntent().getIntExtra("likes", 0)
+            getIntent().getIntExtra("likes", 0),
+            getIntent().getStringExtra("video").toString()
         )
         binding.edit.setText(input.content)
         binding.ok.setOnClickListener {
@@ -32,6 +33,7 @@ class EditPostActivity() : AppCompatActivity() {
                 intent.putExtra("published", input.published)
                 intent.putExtra("likedByMe", input.likedByMe)
                 intent.putExtra("likes", input.likes)
+                intent.putExtra("video", input.videoUri)
                 setResult(Activity.RESULT_OK, intent)
             }
             finish()

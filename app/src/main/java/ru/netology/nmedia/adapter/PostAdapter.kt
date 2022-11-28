@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
+import java.util.regex.Pattern
 
 interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
     fun onShare(post: Post) {}
+    fun onVideo(post: Post){}
 }
 
 class PostsAdapter(
@@ -36,7 +38,6 @@ class PostViewHolder(
     private val binding: CardPostBinding,
     private val onInteractionListener: OnInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
-
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
@@ -45,9 +46,10 @@ class PostViewHolder(
             like.isChecked = post.likedByMe == true
             like.text = "${post.likes}"
             if(post.videoUri != ""){
-                video.visibility = View.VISIBLE
+                group.visibility = View.VISIBLE
+            }else{
+                group.visibility = View.GONE
             }
-
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_menu)
@@ -73,6 +75,14 @@ class PostViewHolder(
 
             share.setOnClickListener {
                 onInteractionListener.onShare(post)
+            }
+
+            playButton.setOnClickListener{
+                onInteractionListener.onVideo(post)
+            }
+
+            video.setOnClickListener{
+                onInteractionListener.onVideo(post)
             }
         }
     }
