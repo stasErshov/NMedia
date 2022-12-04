@@ -1,10 +1,13 @@
 package ru.netology.nmedia.repository
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
 
-class PostRepositoryInMemoryImpl : PostRepository {
+class PostRepositoryInMemoryImpl(
+    context: Context
+) : PostRepository {
     private var nextId = 1L
     private var posts = listOf(
         Post(
@@ -79,7 +82,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun save(post: Post) {
         if (post.id == 0L) {
-            // TODO: remove hardcoded author & published
             posts = listOf(
                 post.copy(
                     id = nextId++,

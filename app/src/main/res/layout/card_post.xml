@@ -93,7 +93,8 @@
             android:layout_width="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/footer"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/video_picture"/>
+            android:src="@drawable/video_picture"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/playButton"
@@ -103,7 +104,8 @@
             app:layout_constraintBottom_toBottomOf="@id/video"
             app:layout_constraintLeft_toLeftOf="@id/video"
             app:layout_constraintRight_toRightOf="@id/video"
-            app:layout_constraintTop_toTopOf="@id/video" />
+            app:layout_constraintTop_toTopOf="@id/video"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/like"
