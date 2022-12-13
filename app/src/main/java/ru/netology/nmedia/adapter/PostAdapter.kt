@@ -7,6 +7,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
@@ -38,6 +39,7 @@ class PostViewHolder(
     private val binding: CardPostBinding,
     private val onInteractionListener: OnInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
@@ -81,7 +83,7 @@ class PostViewHolder(
                 onInteractionListener.onVideo(post)
             }
 
-            video.setOnClickListener{
+            video.setOnClickListener {
                 onInteractionListener.onVideo(post)
             }
         }
